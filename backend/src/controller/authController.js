@@ -49,17 +49,17 @@ const login = async (req, res) => {
         });
 
         if (!userExist) {
-            return res.json({
+            return res.status(400).json({
                 error: "Invalid email or password"
-            }), 400
+            })
         }
 
         const isPasswordValid = await bcrypt.compare(password, userExist.password);
 
         if (!isPasswordValid) {
-            return res.json({
+            return res.status(400).json({
                 error: "Invalid email or password"
-            }), 400
+            })
         }
 
         return res.status(200).json({
